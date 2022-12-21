@@ -15,7 +15,8 @@ public enum ErrorCode {
     TOKEN_NOT_VALID("토큰이 유효 하지 않습니다.", 401),
     ALREADY_EXIST_EMAIL("이미 존재하는 이메일입니다." , 400),
     NOT_VERIFY_EMAIL("검증되지 않은 이메일입니다." , 401),
-    MEMBER_NOT_FOUND("존재하지 않는 회원입니다.", 404);
+    MEMBER_NOT_FOUND("존재하지 않는 회원입니다.", 404),
+    REFRESH_TOKEN_NOT_FOUND("존재하지 않는 리프레시 토큰입니다.", 404);
 
     private String message;
     private int status;
