@@ -35,7 +35,7 @@ public class EmailAuth {
         this.randomValue = uuid;
     }
 
-    public void increaseAttempCount(){
+    public void increaseAttemptCount(){
         this.attemptCount += 1;
     }
 }
