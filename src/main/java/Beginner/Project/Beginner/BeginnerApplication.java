@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableConfigurationProperties
 @EnableJpaRepositories
 public class BeginnerApplication {
+    // 병합 커밋
     public static void main(String[] args) {
         SpringApplication.run(BeginnerApplication.class, args);
     }
