@@ -4,8 +4,7 @@ import com.example.workout.global.exception.ErrorCode;
 import lombok.Getter;
 
 @Getter
-public class
-NotVerifyEmailException extends RuntimeException{
+public class NotVerifyEmailException extends RuntimeException{
 
     private final ErrorCode errorCode;
 
@@ -14,3 +13,4 @@ NotVerifyEmailException extends RuntimeException{
         this.errorCode = ErrorCode.NOT_VERIFY_EMAIL;
     }
 }
+

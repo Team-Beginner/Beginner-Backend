@@ -47,7 +47,7 @@ public class MemberServiceImpl implements MemberService {
                 .orElseThrow(() -> new MemberNotFoundException("존재하지 않는 회원입니다"));
         if(!passwordEncoder.matches(loginRequest.getPassword(), member.getPassword())){
             throw new MisMatchPasswordException("비밀번호가 일치하지 않습니다.");
-        }
+
 
         String accessToken = tokenProvider.generatedAccessToken(loginRequest.getEmail());
         String refreshToken = tokenProvider.generatedRefreshToken(loginRequest.getEmail());
@@ -60,7 +60,6 @@ public class MemberServiceImpl implements MemberService {
                 .expiredAt(tokenProvider.getExpiredAtToken(accessToken, jwtProperties.getAccessSecret()))
                 .build();
     }
-
 
     @Transactional(rollbackFor = Exception.class)
     public void signUp(SignUpRequest signUpRequest) {
@@ -110,6 +109,7 @@ public class MemberServiceImpl implements MemberService {
 
         if(!token.getToken().equals(requestToken)) {
             throw new TokenNotValidException("검증되지 않은 토큰입니다.");
+
         }
 
         String accessToken = tokenProvider.generatedAccessToken(email);
@@ -124,6 +124,5 @@ public class MemberServiceImpl implements MemberService {
                 .expiredAt(expiredAt)
                 .build();
     }
-
 }
 
