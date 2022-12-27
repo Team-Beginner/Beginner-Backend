@@ -1,9 +1,9 @@
 package com.example.workout.domain.member.service.Impl;
 
 import com.example.workout.domain.email.entity.EmailAuth;
-import com.example.workout.domain.email.exception.MisMatchAuthCodeException;
 import com.example.workout.domain.email.exception.NotVerifyEmailException;
 import com.example.workout.domain.email.repository.EmailAuthRepository;
+import com.example.workout.domain.member.exception.MisMatchPasswordException;
 import com.example.workout.domain.member.exception.RefreshTokenNotFoundException;
 import com.example.workout.domain.member.presentation.dto.request.ChangePasswordRequest;
 import com.example.workout.domain.member.presentation.dto.request.LoginRequest;
@@ -32,12 +32,11 @@ import java.time.ZonedDateTime;
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
-    //test
 
+    private final RefreshTokenRepository refreshTokenRepository;
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
-    private final RefreshTokenRepository refreshTokenRepository;
     private final JwtProperties jwtProperties;
     private final EmailAuthRepository emailAuthRepository;
     private final MemberUtil memberUtil;
@@ -47,8 +46,8 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberRepository.findByEmail(loginRequest.getEmail())
                 .orElseThrow(() -> new MemberNotFoundException("존재하지 않는 회원입니다"));
         if(!passwordEncoder.matches(loginRequest.getPassword(), member.getPassword())){
-            throw new MisMatchAuthCodeException("비밀번호가 일치하지 않습니다.");
-        }
+            throw new MisMatchPasswordException("비밀번호가 일치하지 않습니다.");
+
 
         String accessToken = tokenProvider.generatedAccessToken(loginRequest.getEmail());
         String refreshToken = tokenProvider.generatedRefreshToken(loginRequest.getEmail());
@@ -62,8 +61,6 @@ public class MemberServiceImpl implements MemberService {
                 .build();
     }
 
-
-
     @Transactional(rollbackFor = Exception.class)
     public void signUp(SignUpRequest signUpRequest) {
         boolean isExist = memberRepository.existsByEmail(signUpRequest.getEmail());
@@ -71,7 +68,7 @@ public class MemberServiceImpl implements MemberService {
             throw new ExistEmailException("이미 존재하는 이메일입니다.");
         }
         EmailAuth emailAuth = emailAuthRepository.findById(signUpRequest.getEmail())
-                .orElseThrow(() -> new NotVerifyEmailException("이미 존재하는 이메일입니다."));
+                .orElseThrow(() -> new NotVerifyEmailException("인증되지 않은 이메일입니다."));
 
         if(!emailAuth.getAuthentication()){
             throw new NotVerifyEmailException("인증되지 않은 이메일입니다.");
@@ -79,7 +76,7 @@ public class MemberServiceImpl implements MemberService {
 
         Member member = Member.builder()
                 .email(signUpRequest.getEmail())
-                .password(signUpRequest.getPassword())
+                .password(passwordEncoder.encode(signUpRequest.getPassword()))
                 .name(signUpRequest.getName())
                 .number(signUpRequest.getNumber())
                 .role(Role.from(signUpRequest.getRole()))
@@ -105,13 +102,14 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public NewTokenResponse tokenReissue(String requestToken){
+    public NewTokenResponse tokenReissue(String requestToken) {
         String email = tokenProvider.getUserEmail(requestToken, jwtProperties.getRefreshSecret());
         RefreshToken token = refreshTokenRepository.findById(email)
-                .orElseThrow(() -> new RefreshTokenNotFoundException("존재하지 않는 리프레시 토큰입니다."));
+                .orElseThrow(() -> new RefreshTokenNotFoundException("리프레시 토큰이 존재하지 없습니다."));
 
-        if(!token.getToken().equals(requestToken)){
-            throw new TokenNotValidException("검증되지 않은 토큰입니다");
+        if(!token.getToken().equals(requestToken)) {
+            throw new TokenNotValidException("검증되지 않은 토큰입니다.");
+
         }
 
         String accessToken = tokenProvider.generatedAccessToken(email);
@@ -127,3 +125,4 @@ public class MemberServiceImpl implements MemberService {
                 .build();
     }
 }
+

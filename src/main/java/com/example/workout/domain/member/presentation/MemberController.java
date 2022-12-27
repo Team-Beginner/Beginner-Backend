@@ -24,7 +24,7 @@ public class MemberController {
 
 
     @PostMapping(value = "/signup", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> signUp(@RequestBody @Validated SignUpRequest signUpRequest){
+    public ResponseEntity<Void> signUp(@RequestBody @Validated SignUpRequest signUpRequest) {
         memberService.signUp(signUpRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

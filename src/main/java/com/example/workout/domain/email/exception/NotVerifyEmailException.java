@@ -13,3 +13,4 @@ public class NotVerifyEmailException extends RuntimeException{
         this.errorCode = ErrorCode.NOT_VERIFY_EMAIL;
     }
 }
+
