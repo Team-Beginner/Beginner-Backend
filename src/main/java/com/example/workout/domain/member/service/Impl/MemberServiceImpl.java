@@ -32,6 +32,7 @@ import java.time.ZonedDateTime;
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
+    //test
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
