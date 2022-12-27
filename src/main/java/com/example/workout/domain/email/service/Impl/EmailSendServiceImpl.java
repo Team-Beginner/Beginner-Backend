@@ -6,7 +6,7 @@ import com.example.workout.domain.email.exception.ManyRequestEmailAuthException;
 import com.example.workout.domain.email.exception.MisMatchAuthCodeException;
 import com.example.workout.domain.email.presentation.request.EmailSendDto;
 import com.example.workout.domain.email.repository.EmailAuthRepository;
-import com.example.workout.domain.email.service.EmailService;
+import com.example.workout.domain.email.service.EmailSendService;
 import com.example.workout.domain.member.exception.MemberNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -23,7 +23,7 @@ import java.util.Random;
 @Service
 @EnableAsync
 @RequiredArgsConstructor
-public class EmailSendServiceImpl implements EmailService {
+public class EmailSendServiceImpl implements EmailSendService {
 
     private final EmailAuthRepository emailAuthRepository;
     private final JavaMailSender mailSender;
