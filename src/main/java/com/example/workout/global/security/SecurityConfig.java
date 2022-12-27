@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .antMatchers("/email/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/email/send").permitAll()
                 .antMatchers(HttpMethod.HEAD, "/email/**").permitAll()
-                .antMatchers(HttpMethod.PATCH, "/member").permitAll()
+                .antMatchers("/member/**").permitAll()
                 .anyRequest().authenticated();
         http
                 .sessionManagement()
