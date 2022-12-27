@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class AuthParam {
 
+
     @NotBlank
     private String title;
 

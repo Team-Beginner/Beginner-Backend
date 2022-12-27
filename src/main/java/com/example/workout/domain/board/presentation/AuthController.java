@@ -1,8 +1,8 @@
 package com.example.workout.domain.board.presentation;
 
-import com.example.workout.domain.board.entity.Auth;
+
 import com.example.workout.domain.board.presentation.dto.request.AuthParam;
-import com.example.workout.domain.board.service.Impl.AuthServiceImpl;
+import com.example.workout.domain.board.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final AuthServiceImpl authService;
+    private final AuthService authService;
 
     @GetMapping
     public ResponseEntity viewAll(){
@@ -29,10 +29,10 @@ public class AuthController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @GetMapping("/{Seq}")
-    public ResponseEntity write(@PathVariable("Seq") Long Seq){
-        authService.write(Seq);
-        return ResponseEntity.ok(authService.write(Seq));
+    @GetMapping("/{seq}")
+    public ResponseEntity write(@PathVariable("seq") Long seq){
+        authService.write(seq);
+        return ResponseEntity.ok(authService.write(seq));
     }
 
     @PostMapping("/add")
@@ -42,15 +42,15 @@ public class AuthController {
 
     }
 
-    @PutMapping("/{Seq}")
-    public ResponseEntity<Void> edit(@PathVariable("Seq") Long seq, @RequestBody @Valid AuthParam param){
+    @PutMapping("/{seq}")
+    public ResponseEntity<Void> edit(@PathVariable("seq") Long seq, @RequestBody @Valid AuthParam param){
         authService.edit(seq,param);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/{Seq}")
-    public ResponseEntity<Void> delete(@PathVariable("Seq") Long Seq){
-        authService.delete(Seq);
+    @DeleteMapping("/{seq}")
+    public ResponseEntity<Void> delete(@PathVariable("seq") Long seq){
+        authService.delete(seq);
         return ResponseEntity.ok(null);
     }
 }

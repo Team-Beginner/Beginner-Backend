@@ -5,6 +5,7 @@ import com.example.workout.domain.comment.presentation.dto.request.CommentParam;
 import com.example.workout.domain.comment.repository.CommentRepository;
 import com.example.workout.domain.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

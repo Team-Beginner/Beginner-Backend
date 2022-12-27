@@ -6,10 +6,12 @@ import com.example.workout.domain.board.entity.Auth;
 import com.example.workout.domain.board.repository.AuthRepository;
 import com.example.workout.domain.board.service.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,8 +26,8 @@ public class AuthServiceImpl implements AuthService {
     }
     @Override
     @Transactional
-    public List<Auth> viewOne(Long seq){
-        List<Auth> auth = authRepository.findBySeq(seq);
+    public Optional<Auth> viewOne(Long seq){
+        Optional<Auth> auth = authRepository.findBySeq(seq);
         return auth;
     }
     @Override
