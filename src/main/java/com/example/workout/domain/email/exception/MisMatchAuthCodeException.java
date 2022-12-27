@@ -1,3 +1,4 @@
+
 package com.example.workout.domain.email.exception;
 
 import com.example.workout.global.exception.ErrorCode;
