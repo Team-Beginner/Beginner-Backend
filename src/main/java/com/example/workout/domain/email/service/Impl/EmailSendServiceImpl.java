@@ -3,9 +3,11 @@ package com.example.workout.domain.email.service.Impl;
 import com.example.workout.domain.email.entity.EmailAuth;
 import com.example.workout.domain.email.exception.AuthCodeExpiredException;
 import com.example.workout.domain.email.exception.ManyRequestEmailAuthException;
+import com.example.workout.domain.email.exception.MisMatchAuthCodeException;
 import com.example.workout.domain.email.presentation.request.EmailSendDto;
 import com.example.workout.domain.email.repository.EmailAuthRepository;
 import com.example.workout.domain.email.service.EmailSendService;
+import com.example.workout.domain.member.exception.MemberNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -63,6 +65,21 @@ public class EmailSendServiceImpl implements EmailSendService {
             mailSender.send(mimeMessage);
         } catch (MessagingException e){
             throw new AuthCodeExpiredException("메일 발송에 실패했습니다");
+        }
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void checkEmail(String email, String authKey) {
+        EmailAuth emailAuth = emailAuthRepository.findById(email)
+                .orElseThrow(() -> new MemberNotFoundException("사용자를 찾을 수 없습니다."));
+        checkVerifyCode(emailAuth, authKey);
+        emailAuth.updateAuthentication(true);
+        emailAuthRepository.save(emailAuth);
+    }
+
+    public void checkVerifyCode(EmailAuth emailAuth, String verifyCode){
+        if(!emailAuth.getRandomValue().equals(verifyCode)){
+            throw new MisMatchAuthCodeException("인증번호가 일치하지 않습니다.");
         }
     }
 }
