@@ -1,6 +1,6 @@
 package com.example.workout.domain.email.presentation;
 
-import com.example.workout.domain.email.presentation.request.EmailSendDto;
+import com.example.workout.domain.email.presentation.dto.request.EmailSendDto;
 import com.example.workout.domain.email.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

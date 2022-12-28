@@ -1,4 +1,4 @@
-package com.example.workout.domain.comment.presentation.dto;
+package com.example.workout.domain.comment.presentation;
 
 import com.example.workout.domain.comment.presentation.dto.request.CommentParam;
 import com.example.workout.domain.comment.service.CommentService;
@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@RequestMapping("/comment/notice")
 @RestController
-@RequestMapping("/comment")
 @RequiredArgsConstructor
-public class CommentController {
-
+public class NoticeCommentController {
     private final CommentService commentService;
 
     @GetMapping
@@ -22,7 +21,7 @@ public class CommentController {
         return  ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity add(@RequestBody @Valid CommentParam param){
         commentService.add(param);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -35,7 +34,7 @@ public class CommentController {
     }
 
     @DeleteMapping("/{Id}")
-    public ResponseEntity delete(@PathVariable ("Id") Long id){
+    public ResponseEntity delete(@PathVariable("Id") Long id){
         commentService.delete(id);
         return ResponseEntity.ok(null);
 

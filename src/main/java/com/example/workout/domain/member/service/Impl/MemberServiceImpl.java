@@ -45,21 +45,23 @@ public class MemberServiceImpl implements MemberService {
     public MemberLoginResponse login(LoginRequest loginRequest) {
         Member member = memberRepository.findByEmail(loginRequest.getEmail())
                 .orElseThrow(() -> new MemberNotFoundException("존재하지 않는 회원입니다"));
-        if(!passwordEncoder.matches(loginRequest.getPassword(), member.getPassword())){
+        if (!passwordEncoder.matches(loginRequest.getPassword(), member.getPassword())) {
             throw new MisMatchPasswordException("비밀번호가 일치하지 않습니다.");
+        }
 
 
-        String accessToken = tokenProvider.generatedAccessToken(loginRequest.getEmail());
-        String refreshToken = tokenProvider.generatedRefreshToken(loginRequest.getEmail());
-        RefreshToken entityToRedis = new RefreshToken(loginRequest.getEmail(), refreshToken, tokenProvider.getREFRESH_TOKEN_EXPIRE_TIME());
-        refreshTokenRepository.save(entityToRedis);
+            String accessToken = tokenProvider.generatedAccessToken(loginRequest.getEmail());
+            String refreshToken = tokenProvider.generatedRefreshToken(loginRequest.getEmail());
+            RefreshToken entityToRedis = new RefreshToken(loginRequest.getEmail(), refreshToken, tokenProvider.getREFRESH_TOKEN_EXPIRE_TIME());
+            refreshTokenRepository.save(entityToRedis);
 
-        return MemberLoginResponse.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .expiredAt(tokenProvider.getExpiredAtToken(accessToken, jwtProperties.getAccessSecret()))
-                .build();
+            return MemberLoginResponse.builder()
+                    .accessToken(accessToken)
+                    .refreshToken(refreshToken)
+                    .expiredAt(tokenProvider.getExpiredAtToken(accessToken, jwtProperties.getAccessSecret()))
+                    .build();
     }
+
 
     @Transactional(rollbackFor = Exception.class)
     public void signUp(SignUpRequest signUpRequest) {

@@ -5,7 +5,6 @@ import com.example.workout.domain.comment.presentation.dto.request.CommentParam;
 import com.example.workout.domain.comment.repository.CommentRepository;
 import com.example.workout.domain.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +18,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public List<Comment> viewAll(){
-        List<Comment> comment =commentRepository.findAll();
+        List<Comment> comment = commentRepository.findAll();
         return comment;
     }
 
@@ -34,7 +33,6 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.save(comment);
     }
 
-
     @Override
     @Transactional
     public void edit(Long id, CommentParam param) {
@@ -47,5 +45,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional
-    public void delete(Long Id){ commentRepository.deleteById(Id);}
+    public void delete(Long Id) {
+        commentRepository.deleteById(Id);
+    }
 }

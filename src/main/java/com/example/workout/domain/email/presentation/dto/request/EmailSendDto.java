@@ -1,4 +1,4 @@
-package com.example.workout.domain.email.presentation.request;
+package com.example.workout.domain.email.presentation.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

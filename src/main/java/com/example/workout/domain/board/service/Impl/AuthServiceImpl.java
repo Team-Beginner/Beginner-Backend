@@ -6,7 +6,6 @@ import com.example.workout.domain.board.entity.Auth;
 import com.example.workout.domain.board.repository.AuthRepository;
 import com.example.workout.domain.board.service.AuthService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,5 +67,7 @@ public class AuthServiceImpl implements AuthService {
     }
     @Override
     @Transactional
-    public void delete(Long seq){authRepository.deleteById(seq);}
+    public void delete(Long seq){
+        authRepository.deleteById(seq);
+    }
 }

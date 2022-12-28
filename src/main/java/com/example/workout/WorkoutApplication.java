@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -16,7 +17,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableConfigurationProperties
 @ConfigurationPropertiesScan
 @EnableJpaRepositories
-public class WorkoutApplication {
+public class WorkoutApplication{
 
 	public static void main(String[] args) {
 		SpringApplication.run(WorkoutApplication.class, args);

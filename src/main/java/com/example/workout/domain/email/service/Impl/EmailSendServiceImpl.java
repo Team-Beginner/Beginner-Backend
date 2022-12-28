@@ -5,7 +5,7 @@ import com.example.workout.domain.email.entity.EmailAuth;
 import com.example.workout.domain.email.exception.AuthCodeExpiredException;
 import com.example.workout.domain.email.exception.ManyRequestEmailAuthException;
 import com.example.workout.domain.email.exception.MisMatchAuthCodeException;
-import com.example.workout.domain.email.presentation.request.EmailSendDto;
+import com.example.workout.domain.email.presentation.dto.request.EmailSendDto;
 import com.example.workout.domain.email.repository.EmailAuthRepository;
 import com.example.workout.domain.email.service.EmailService;
 import com.example.workout.domain.member.exception.MemberNotFoundException;
