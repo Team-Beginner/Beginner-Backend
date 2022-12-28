@@ -1,7 +1,6 @@
 package com.example.workout.domain.comment.entity;
 
-import com.example.workout.domain.board.entity.Auth;
-import com.example.workout.domain.comment.presentation.dto.request.CommentParam;
+import com.example.workout.domain.board.entity.Board;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,25 +11,23 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Builder
-@Table(name="Comment")
+@Table(name="Comments")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Comment {
+public class Comments {
     @Id
     @GeneratedValue
-    private Long Id;
+    private Long commentId;
 
     private String userName;
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "auth")
-    private Auth auth;
+    @JoinColumn(name = "board")
+    private Board board;
 
     public void update(String content, String userName){
         this.content=content;
         this.userName=userName;
     }
-
-
 }
