@@ -53,12 +53,14 @@ public class MemberServiceImpl implements MemberService {
             String accessToken = tokenProvider.generatedAccessToken(loginRequest.getEmail());
             String refreshToken = tokenProvider.generatedRefreshToken(loginRequest.getEmail());
             RefreshToken entityToRedis = new RefreshToken(loginRequest.getEmail(), refreshToken, tokenProvider.getREFRESH_TOKEN_EXPIRE_TIME());
+            String name  = member.getName();
             refreshTokenRepository.save(entityToRedis);
 
             return MemberLoginResponse.builder()
                     .accessToken(accessToken)
                     .refreshToken(refreshToken)
                     .expiredAt(tokenProvider.getExpiredAtToken(accessToken, jwtProperties.getAccessSecret()))
+                    .name(name)
                     .build();
     }
 

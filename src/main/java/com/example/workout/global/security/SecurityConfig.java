@@ -37,9 +37,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
+                .cors()
+                .and()
                 .csrf().disable();
         http
                 .authorizeRequests()
+                .antMatchers("/").permitAll()
                 .antMatchers("/email/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/email/send").permitAll()
                 .antMatchers(HttpMethod.HEAD, "/email/**").permitAll()
