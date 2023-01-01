@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 public class CommentParam {
 
     @NotBlank
-    private String userName;
+    private String username;
 
     @NotBlank
     private String content;

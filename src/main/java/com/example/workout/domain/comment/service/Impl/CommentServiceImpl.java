@@ -27,7 +27,7 @@ public class CommentServiceImpl implements CommentService {
     public void add(CommentParam param){
         Comment comment = Comment.builder()
                 .content(param.getContent())
-                .userName(param.getUserName())
+                .userName(param.getUsername())
                 .build();
 
         commentRepository.save(comment);
@@ -38,7 +38,7 @@ public class CommentServiceImpl implements CommentService {
     public void edit(Long id, CommentParam param) {
         Comment getEntity =commentRepository.findById(id)
                 .orElseThrow( ()->new RuntimeException());
-        getEntity.update(param.getContent(), param.getUserName());
+        getEntity.update(param.getContent(), param.getUsername());
         commentRepository.save(getEntity);
 
     }
