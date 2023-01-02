@@ -11,6 +11,7 @@ import javax.validation.Valid;
 
 @RequestMapping("/comment/notice")
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequiredArgsConstructor
 public class NoticeCommentController {
     private final CommentService commentService;

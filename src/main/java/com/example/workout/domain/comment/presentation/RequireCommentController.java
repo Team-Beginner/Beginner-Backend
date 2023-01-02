@@ -11,6 +11,7 @@ import javax.validation.Valid;
 
 @RequestMapping("/comment/require")
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequiredArgsConstructor
 public class RequireCommentController {
     private final CommentService commentService;
